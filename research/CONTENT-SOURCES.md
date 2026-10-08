@@ -1,17 +1,11 @@
-# Concept 2 factual and asset sources
+# Current content scope — 8 October 2026
 
-Reviewed 6 October 2026 against the existing Cleanest website and Concept 1’s final factual audit. Source-site HTML is kept locally as evidence and excluded from Git. Tests check both exact review texts, all 15 listed areas, core claims, service details and contact links. Source presence establishes attribution; obtain client consent/current confirmation before an official launch.
+Simone’s direct client confirmation supersedes older coverage on the existing website. Cleanest operates in Johannesburg only. The source website remains unmodified.
 
-| Source | Reused content |
-| --- | --- |
-| https://www.cleanest.co.za/ | 29 years; owner management; personal attention; dedicated local teams; homes/businesses; mowing/edging/pruning; contact/social hrefs |
-| https://www.cleanest.co.za/carpetcleaning.html | Carpet, sofa/chair/mattress cleaning; stain/odour treatment; team and carpet photographs |
-| https://www.cleanest.co.za/windowcleaning.html | Accessible windows up to second floor; frames/sills/tracks, glass doors and mirrors |
-| https://www.cleanest.co.za/cleanestgardenservices.html | Year-round residential/complex/estate/corporate garden care, tree felling, site clearing, irrigation, golf estates and school/sport fields |
-| https://www.cleanest.co.za/johannesburgcleanest.html | Nine named Johannesburg areas and exact Sarah L. testimonial |
-| https://www.cleanest.co.za/plettenbergbaycleanest.html | Six named Plett/Garden Route areas, holiday homes/guest houses, exact David F. testimonial |
-| https://www.cleanest.co.za/contact.html | 083 440 2603; simone@cleanest.co.za; jason@cleanest.co.za; Mon–Fri 08h00–17h00; Facebook /cleanestsa and WhatsApp /27834402603 |
+Retained Johannesburg suburbs: Sandton, Randburg, Roodepoort, Midrand, Fourways, Bryanston, Rosebank, Bedfordview and Edenvale, supported by https://www.cleanest.co.za/johannesburgcleanest.html. Only the exact Sarah L. testimonial from that page is retained.
 
-Original image URLs are under `https://www.cleanest.co.za/images/`: `cleanestlogo.png` (saved as cleanest-logo.png), `newcarpet1.webp`, `newgarden1.webp`, `winc1.webp`, `carpetteam.webp`, `newuph1.webp`, `newgarden2.webp`. The newuph1 image was visually checked and shows carpet/rug cleaning; it is described accordingly. Team photo is described as pictured on the source website, without claiming the people or vehicles are current. No geographic identity is assigned to unverified photos. No matched before/after pair is claimed.
+Services, owner management and the stated 29 years of experience remain supported by the homepage and carpet/window/garden service pages. Existing phone, Simone/Jason emails, operating hours, Facebook and WhatsApp contacts remain unchanged. Raw historical source captures and prior QA images are archived outside the projects, not served or committed.
 
-Omitted: prices, ratings, guarantees, insurance claims with unspecified conditions, certifications, customer counts and founding date extrapolation. Photo selection limits and gallery indices are interface details, not business statistics. All original-site imagery is subject to client permission for final publication.
+The shoreline garden photograph and regional testimonial have been removed. The hedge-maintenance photograph already supplied by Cleanest is used in the same image containers, without claiming a specific project location. Other real photographs and galleries remain intact.
+
+Noindex and local-only enquiry behaviour remain unchanged. No new suburbs, addresses, contact details, services or business claims were introduced.

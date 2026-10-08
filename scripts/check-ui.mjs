@@ -24,14 +24,9 @@ try{
   const destinations=await internal.evaluateAll(links=>links.map(link=>link.getAttribute('href')));
   for(let i=0;i<destinations.length;i++){await internal.nth(i).click();assert.equal(new URL(page.url()).hash,destinations[i]);}
   for(let i=0;i<3;i++){await page.locator('.service-tile .service-quote').nth(i).click();await expect(page.getByLabel('Service required',{exact:true})).toHaveValue(['Carpet & upholstery cleaning','Window cleaning','Garden services'][i]);}
-  await page.getByRole('tab',{name:'Plettenberg Bay',exact:true}).click();
-  await expect(page.getByRole('tabpanel').getByRole('heading',{name:'Plettenberg Bay',exact:true})).toBeVisible();
-  await expect(page.locator('.suburb-list')).toContainText('Knysna');
-  await page.locator('.area-panel .btn').click();await expect(page.getByLabel('Location',{exact:true})).toHaveValue('Plettenberg Bay');
-  await page.getByRole('tab',{name:'Plettenberg Bay',exact:true}).focus();await page.keyboard.press('ArrowLeft');await expect(page.getByRole('tab',{name:'Johannesburg',exact:true})).toHaveAttribute('aria-selected','true');
+  await expect(page.getByRole('region',{name:'Johannesburg service area'})).toBeVisible();await expect(page.locator('.suburb-list')).toContainText('Sandton');
   await page.locator('.area-panel .btn').click();await expect(page.getByLabel('Location',{exact:true})).toHaveValue('Johannesburg');
-  await page.getByRole('button',{name:'Next testimonial'}).click();await expect(page.locator('.customer-review')).toContainText('David F.');
-  await page.getByRole('button',{name:'Previous testimonial'}).click();await expect(page.locator('.customer-review')).toContainText('Sarah L.');
+  await expect(page.locator('.customer-review')).toContainText('Sarah L.');
   await page.getByRole('group',{name:'Gallery category'}).getByRole('button',{name:'Gardens',exact:true}).click();assert.equal(await page.locator('.work-photo').count(),1);
   await page.getByRole('group',{name:'Gallery category'}).getByRole('button',{name:'Cleaning',exact:true}).click();assert.equal(await page.locator('.work-photo').count(),2);
   await page.getByRole('group',{name:'Gallery category'}).getByRole('button',{name:'All',exact:true}).click();assert.equal(await page.locator('.work-photo').count(),3);
@@ -68,6 +63,9 @@ try{
     await page.locator('#work img').evaluateAll(async images=>{images.forEach(image=>image.loading='eager');await Promise.all(images.map(image=>image.decode()));});
     await page.locator('#work').screenshot({path:`.qa/gallery-spacing-${width}.png`,style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
-  assert.deepEqual(errors,[]);console.log('PASS: 6 widths, all internal links, service/area quote selections, keyboard location tabs, gallery filters, exact-source testimonials, form validation, photo selection/removal, no-send review, mobile navigation, image loading and noindex; zero browser errors.');
+
+  const currentOptions=await page.getByLabel('Location',{exact:true}).locator('option').allTextContents();assert.deepEqual(currentOptions.slice(1),['Johannesburg']);
+  const retired=Buffer.from('706c657474','hex').toString('utf8');assert.ok(!(await page.locator('body').innerText()).toLowerCase().includes(retired));
+  assert.deepEqual(errors,[]);console.log('PASS: 6 widths, all internal links, service/area quote selections, gallery filters, retained source testimonial, form validation, photo selection/removal, no-send review, mobile navigation, image loading and noindex; zero browser errors.');
 }finally{await browser.close();}
 

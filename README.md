@@ -36,3 +36,7 @@ Preserve the noindex settings and use hosting access protection if the demo link
 
 Business photos, branding and testimonials are attributable to Cleanest; repository publication does not grant reuse rights to those assets.
 
+
+## Current service area
+
+The client confirmed on 8 October 2026 that Cleanest serves Johannesburg only. This supersedes older location information on the official source website. Forms, metadata, service areas and testimonial content reflect that instruction.
