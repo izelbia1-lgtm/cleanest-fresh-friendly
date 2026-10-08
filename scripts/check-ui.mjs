@@ -1,3 +1,4 @@
+import './check-approved-imagery.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile } from 'node:fs/promises';
 import { chromium, expect } from '@playwright/test';
@@ -68,4 +69,5 @@ try{
   const retired=Buffer.from('706c657474','hex').toString('utf8');assert.ok(!(await page.locator('body').innerText()).toLowerCase().includes(retired));
   assert.deepEqual(errors,[]);console.log('PASS: 6 widths, all internal links, service/area quote selections, gallery filters, retained source testimonial, form validation, photo selection/removal, no-send review, mobile navigation, image loading and noindex; zero browser errors.');
 }finally{await browser.close();}
+
 
