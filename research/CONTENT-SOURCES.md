@@ -2,7 +2,7 @@
 
 Simone and Jason selected Concept 2. Their direct feedback supersedes older website wording: use “Over 30 Years of Experience & Expertise” and the exact supplied logo (blue oval, figure, bubbles, flowers, EST. 1996). The unmodified JPEG was provided in Downloads as WhatsApp Image 2026-10-09 at 07.28.28.jpeg; its SHA-256 is c620117428baf072b7850e42682855e77a23a2fe7f84624b0615e896eb989c8b.
 
-The client supplied these cleaning services: carpets and rugs; upholstery and leather; mattresses and headboards; curtains and blinds; flood damage cleaning; window cleaning; solar panel cleaning; pre- and post-occupation cleaning. They are grouped into the existing cleaning panels and available individually in the enquiry selector. No additional service claims or guarantees were introduced.
+Simone's latest WhatsApp feedback confirms exactly eight categories: Carpets & Rugs; Upholstery & Leather; Mattresses & Headboards; Curtains & Blinds; Flood Damage; Windows & Solar Panels; Pre & Post Occupation Clean; Garden Services. Seven cleaning categories remain within the existing two cleaning photo panels, with short neutral descriptions and enquiry links. Garden Services retains its existing photo panel and supported descriptions. The quote selector and footer use exactly these eight names; Multiple services is an enquiry preference, not an additional service category. No services, guarantees or unsupported details were invented.
 
 Simone’s client confirmation establishes Johannesburg-only coverage. Retained suburbs are Sandton, Randburg, Roodepoort, Midrand, Fourways, Bryanston, Rosebank, Bedfordview and Edenvale, supported by https://www.cleanest.co.za/johannesburgcleanest.html. Only the exact Sarah L. testimonial from that page is retained.
 

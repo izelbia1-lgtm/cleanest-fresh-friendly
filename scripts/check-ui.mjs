@@ -18,7 +18,7 @@ try{
   assert.equal(await page.locator('h1').count(),1);
   await expect(page.locator('.hero-experience')).toHaveText('Over 30 Years of Experience & Expertise');
   assert.doesNotMatch(await page.locator('body').innerText(),/29\s*years|\b29\b/i);
-  for(const name of ['Carpets and rugs','Upholstery and leather','Mattresses and headboards','Curtains and blinds','Flood damage cleaning','Window cleaning','Solar panel cleaning','Pre- and post-occupation cleaning']){await expect(page.locator('.services-layout')).toContainText(name);assert.equal(await page.getByLabel('Service required',{exact:true}).locator('option').filter({hasText:name}).count(),1);}
+  for(const name of ["Carpets & Rugs","Upholstery & Leather","Mattresses & Headboards","Curtains & Blinds","Flood Damage","Windows & Solar Panels","Pre & Post Occupation Clean","Garden Services"]){await expect(page.locator('.services-layout')).toContainText(name);assert.equal(await page.getByLabel('Service required',{exact:true}).locator('option').filter({hasText:name}).count(),1);}
   for(const width of [320,375,430,768,1366,1920]){await page.setViewportSize({width,height:1000});const size=await page.locator('.site-header .logo img').evaluate(image=>{const rect=image.getBoundingClientRect();return {width:rect.width,height:rect.height,naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight};});assert.ok(size.width>=126);assert.ok(Math.abs(size.width/size.height-size.naturalWidth/size.naturalHeight)<.01,'Logo keeps original proportions');assert.ok(await page.locator('.nav-row').evaluate(element=>element.scrollWidth<=element.clientWidth),'Larger logo fits header');}
   assert.match(await page.locator('meta[name=robots]').getAttribute('content'),/noindex, nofollow/);
   assert.match(await readFile('vercel.json','utf8'),/X-Robots-Tag/);
@@ -28,7 +28,13 @@ try{
   const internal=page.locator('a[href^="#"]:not(.skip-link):visible');
   const destinations=await internal.evaluateAll(links=>links.map(link=>link.getAttribute('href')));
   for(let i=0;i<destinations.length;i++){await internal.nth(i).click();assert.equal(new URL(page.url()).hash,destinations[i]);}
-  for(let i=0;i<3;i++){await page.locator('.service-tile .service-quote').nth(i).click();await expect(page.getByLabel('Service required',{exact:true})).toHaveValue(['Carpet & upholstery cleaning','Window & specialist cleaning','Garden services'][i]);}
+  for(let i=0;i<3;i++){await page.locator('.service-tile .service-quote').nth(i).click();await expect(page.getByLabel('Service required',{exact:true})).toHaveValue(['Multiple services','Multiple services','Garden Services'][i]);}
+
+  const exactNames=["Carpets & Rugs","Upholstery & Leather","Mattresses & Headboards","Curtains & Blinds","Flood Damage","Windows & Solar Panels","Pre & Post Occupation Clean","Garden Services"];
+  assert.deepEqual(await page.getByLabel('Service required',{exact:true}).locator('optgroup option').allTextContents(),exactNames);
+  assert.deepEqual(await page.locator('.footer-main').getByRole('heading',{name:'Our services',exact:true}).locator('..').locator('a').allTextContents(),exactNames);
+  for(const name of exactNames.slice(0,7)){await page.locator('.service-categories').getByRole('link',{name,exact:true}).click();await expect(page.getByLabel('Service required',{exact:true})).toHaveValue(name);}
+  await page.locator('.service-gardens .service-quote').click();await expect(page.getByLabel('Service required',{exact:true})).toHaveValue('Garden Services');
   await expect(page.getByRole('region',{name:'Johannesburg service area'})).toBeVisible();await expect(page.locator('.suburb-list')).toContainText('Sandton');
   await page.locator('.area-panel .btn').click();await expect(page.getByLabel('Location',{exact:true})).toHaveValue('Johannesburg');
   await expect(page.locator('.customer-review')).toContainText('Sarah L.');
@@ -43,7 +49,7 @@ try{
   await page.getByLabel('Add photos of your space',{exact:true}).setInputFiles('public/images/cleanest-logo.jpeg');await expect(page.getByRole('status')).toContainText('cleanest-logo.jpeg');
   let posts=0;page.on('request',request=>{if(request.method()==='POST')posts++;});
   await page.getByRole('button',{name:'Request a Quote',exact:true}).click();await page.getByRole('dialog').waitFor();
-  const preview=await page.locator('dialog pre').innerText();for(const value of ['Test Visitor','082 123 4567','test@example.com','Johannesburg','Garden services','Photos selected: 1'])assert.ok(preview.includes(value));assert.equal(posts,0);
+  const preview=await page.locator('dialog pre').innerText();for(const value of ['Test Visitor','082 123 4567','test@example.com','Johannesburg','Garden Services','Photos selected: 1'])assert.ok(preview.includes(value));assert.equal(posts,0);
   await page.keyboard.press('Escape');assert.equal(await page.locator('dialog[open]').count(),0);
   await page.getByRole('button',{name:'Remove photos'}).click();assert.equal(await page.locator('input[type=file]').evaluate(input=>input.files.length),0);
   assert.ok(await page.locator('a[href="https://wa.me/27834402603"]').count()>=3);assert.ok(await page.locator('a[href="tel:+27834402603"]').count()>=3);

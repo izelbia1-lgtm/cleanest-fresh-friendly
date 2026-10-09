@@ -34,3 +34,13 @@
 
 html{scroll-padding-top:160px}
 @media(min-width:651px) and (max-width:1100px){html{scroll-padding-top:150px}}
+
+/* Exact client service categories within the approved photo panels. */
+.service-content .service-categories{margin-block:18px 22px}
+.service-content .service-categories li{margin-top:14px}
+.service-categories h4{font-size:13px;line-height:1.4;letter-spacing:0}
+.service-categories h4 a{display:inline; text-decoration:underline;text-decoration-color:#b7cedc;text-underline-offset:3px}
+.service-categories h4 svg{display:inline;vertical-align:middle;margin-left:5px}
+.service-content .service-categories p{font-size:11px;line-height:1.55;margin-top:4px}
+.service-categories li>div{min-width:0}
+@media(max-width:950px){.service-categories h4{font-size:12px}}
