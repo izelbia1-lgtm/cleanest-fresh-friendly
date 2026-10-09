@@ -12,3 +12,25 @@
 
 /* Existing green text, adjusted only where contrast was insufficient. */
 .hero-whatsapp,.mobile-contacts a:nth-child(2),.area-section .kicker{color:#417c24}
+
+/* Client-approved branding and service accents — 9 October 2026. */
+.site-header .logo img{width:150px;flex-shrink:0}
+.site-header .logo{flex-shrink:0}
+.nav-row{min-height:118px}
+.hero-message>.hero-experience{font-size:19px;line-height:1.4;color:var(--blue);max-width:390px;margin-top:20px}
+.hero-experience strong{font-weight:700}
+.quick-trust .trust-years{flex-direction:column;align-items:flex-start;gap:5px}
+.trust-years strong{font-size:30px;letter-spacing:-.035em;white-space:nowrap}
+.trust-years>span{font-size:11px;line-height:1.4}
+.service-content{position:relative}
+.cleaning-bubbles{position:absolute;top:12px;right:17px;width:58px;height:31px;pointer-events:none;opacity:.65}
+.cleaning-bubbles i{position:absolute;border:1.5px solid #78b7df;background:#f5fbff;border-radius:50%;width:22px;height:22px;left:0;top:7px}
+.cleaning-bubbles i:nth-child(2){width:13px;height:13px;left:28px;top:0}
+.cleaning-bubbles i:nth-child(3){width:9px;height:9px;left:45px;top:17px}
+.garden-detail{position:absolute;top:-15px;right:18px;color:#5b8b35;background:#f3f8ed;line-height:0;padding:3px;pointer-events:none}
+@media(max-width:1100px){.site-header .logo img{width:130px}.nav-row{min-height:106px}}
+@media(max-width:950px){.nav-row nav{top:106px}}
+@media(max-width:650px){.site-header .logo img{width:126px}.nav-row{min-height:102px}.nav-row nav{top:144px}.hero-message>.hero-experience{font-size:18px}.trust-years strong{font-size:26px}.trust-years>span{font-size:10px}}
+
+html{scroll-padding-top:160px}
+@media(min-width:651px) and (max-width:1100px){html{scroll-padding-top:150px}}

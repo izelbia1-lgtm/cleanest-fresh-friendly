@@ -5,7 +5,7 @@ import ts from 'typescript';
 // Audit our business content against the archived live source pages. Source
 // presence establishes attribution; it does not establish customer consent.
 const module = ts.transpileModule(readFileSync('src/data.ts','utf8'), { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText;
-const { business, areas, reviews } = await import('data:text/javascript;base64,' + Buffer.from(module).toString('base64'));
+const { business, areas, reviews, experience, cleaningServices } = await import('data:text/javascript;base64,' + Buffer.from(module).toString('base64'));
 const normalize = value => value.replace(/&amp;/g,'&').replace(/&#(?:39|039);|&apos;/g,"'").replace(/&quot;/g,'"').replace(/&nbsp;/g,' ').replace(/[’‘]/g,"'").replace(/[–—]/g,'-').replace(/\s+/g,' ').trim().toLowerCase();
 const sources = new Map();
 for (const name of ['home','contact','johannesburgcleanest','carpetcleaning','windowcleaning','cleanestgardenservices']) {
@@ -18,12 +18,14 @@ for (const name of ['home','contact','johannesburgcleanest','carpetcleaning','wi
   }
 }
 const raw = name => sources.get(name);
+assert.equal(experience,'Over 30 Years of Experience & Expertise','Client-approved experience wording');
+assert.deepEqual([...cleaningServices].sort(),['Carpets and rugs','Upholstery and leather','Mattresses and headboards','Curtains and blinds','Flood damage cleaning','Window cleaning','Solar panel cleaning','Pre- and post-occupation cleaning'].sort(),'Exact client-supplied cleaning services');
 const page = name => normalize(raw(name).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,'').replace(/<[^>]+>/g,' '));
 const contains = (name,text) => assert.ok(page(name).includes(normalize(text)),`Verified source ${name}: ${text}`);
 for(const review of reviews){const source=review.source.split('/').pop().replace('.html','');contains(source,review.quote);contains(source,review.name);contains(source,review.area);}
 assert.equal(areas.length,1);assert.equal(areas[0].name,'Johannesburg');assert.equal(reviews.length,1);assert.equal(reviews[0].name,'Sarah L.');
 for(const area of areas) {const source='johannesburgcleanest';contains(source,area.name);for(const suburb of area.suburbs.split(' · '))contains(source,suburb);}
-for(const claim of ['29 Years of Experience','Owner Managed & Results Driven','Personal attention to every project','homes and businesses'])contains('home',claim);
+for(const claim of ['Owner Managed & Results Driven','Personal attention to every project','homes and businesses'])contains('home',claim);
 for(const claim of ['all-year-round','Residential, Complex, Estate and Corporate','Tree Felling','Site Clearing','Irrigation Installations','Golf Estate Maintenance','School / Sport Field Maintenance'])contains('cleanestgardenservices',claim);
 for(const claim of ['Sofa and chair cleaning','Mattress deep cleaning','Odor elimination'])contains('carpetcleaning',claim);
 for(const claim of ['up to the 2nd floor','Window frames, sills, and tracks','Mirrors and other glass surfaces'])contains('windowcleaning',claim);

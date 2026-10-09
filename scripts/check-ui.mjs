@@ -16,6 +16,10 @@ try{
   await page.waitForFunction(()=>[...document.images].every(image=>image.complete));
   assert.ok(await page.locator('img').evaluateAll(images=>images.every(image=>image.naturalWidth>0)));
   assert.equal(await page.locator('h1').count(),1);
+  await expect(page.locator('.hero-experience')).toHaveText('Over 30 Years of Experience & Expertise');
+  assert.doesNotMatch(await page.locator('body').innerText(),/29\s*years|\b29\b/i);
+  for(const name of ['Carpets and rugs','Upholstery and leather','Mattresses and headboards','Curtains and blinds','Flood damage cleaning','Window cleaning','Solar panel cleaning','Pre- and post-occupation cleaning']){await expect(page.locator('.services-layout')).toContainText(name);assert.equal(await page.getByLabel('Service required',{exact:true}).locator('option').filter({hasText:name}).count(),1);}
+  for(const width of [320,375,430,768,1366,1920]){await page.setViewportSize({width,height:1000});const size=await page.locator('.site-header .logo img').evaluate(image=>{const rect=image.getBoundingClientRect();return {width:rect.width,height:rect.height,naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight};});assert.ok(size.width>=126);assert.ok(Math.abs(size.width/size.height-size.naturalWidth/size.naturalHeight)<.01,'Logo keeps original proportions');assert.ok(await page.locator('.nav-row').evaluate(element=>element.scrollWidth<=element.clientWidth),'Larger logo fits header');}
   assert.match(await page.locator('meta[name=robots]').getAttribute('content'),/noindex, nofollow/);
   assert.match(await readFile('vercel.json','utf8'),/X-Robots-Tag/);
   assert.match(await readFile('public/robots.txt','utf8'),/Disallow:/);
@@ -24,7 +28,7 @@ try{
   const internal=page.locator('a[href^="#"]:not(.skip-link):visible');
   const destinations=await internal.evaluateAll(links=>links.map(link=>link.getAttribute('href')));
   for(let i=0;i<destinations.length;i++){await internal.nth(i).click();assert.equal(new URL(page.url()).hash,destinations[i]);}
-  for(let i=0;i<3;i++){await page.locator('.service-tile .service-quote').nth(i).click();await expect(page.getByLabel('Service required',{exact:true})).toHaveValue(['Carpet & upholstery cleaning','Window cleaning','Garden services'][i]);}
+  for(let i=0;i<3;i++){await page.locator('.service-tile .service-quote').nth(i).click();await expect(page.getByLabel('Service required',{exact:true})).toHaveValue(['Carpet & upholstery cleaning','Window & specialist cleaning','Garden services'][i]);}
   await expect(page.getByRole('region',{name:'Johannesburg service area'})).toBeVisible();await expect(page.locator('.suburb-list')).toContainText('Sandton');
   await page.locator('.area-panel .btn').click();await expect(page.getByLabel('Location',{exact:true})).toHaveValue('Johannesburg');
   await expect(page.locator('.customer-review')).toContainText('Sarah L.');
@@ -36,7 +40,7 @@ try{
   await page.getByLabel('Phone',{exact:true}).fill('         ');assert.equal(await page.getByLabel('Phone',{exact:true}).evaluate(input=>input.checkValidity()),false,'Whitespace cannot stand in for a phone number');
   await page.getByLabel('Name',{exact:true}).fill('Test Visitor');await page.getByLabel('Phone',{exact:true}).fill('invalid');assert.equal(await page.getByLabel('Phone',{exact:true}).evaluate(input=>input.checkValidity()),false);
   await page.getByLabel('Phone',{exact:true}).fill('082 123 4567');await page.getByLabel('Email',{exact:true}).fill('test@example.com');await page.getByLabel('Description of work').fill('A test enquiry only.');
-  await page.getByLabel('Add photos of your space',{exact:true}).setInputFiles('public/images/cleanest-logo.png');await expect(page.getByRole('status')).toContainText('cleanest-logo.png');
+  await page.getByLabel('Add photos of your space',{exact:true}).setInputFiles('public/images/cleanest-logo.jpeg');await expect(page.getByRole('status')).toContainText('cleanest-logo.jpeg');
   let posts=0;page.on('request',request=>{if(request.method()==='POST')posts++;});
   await page.getByRole('button',{name:'Request a Quote',exact:true}).click();await page.getByRole('dialog').waitFor();
   const preview=await page.locator('dialog pre').innerText();for(const value of ['Test Visitor','082 123 4567','test@example.com','Johannesburg','Garden services','Photos selected: 1'])assert.ok(preview.includes(value));assert.equal(posts,0);
